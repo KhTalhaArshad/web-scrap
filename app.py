@@ -21,7 +21,7 @@ author = quote.find('small' , class_='author').text
 link = quote.find('a')
 st.success(text)
 st.markdown(f"<a href=https://quotes.toscrape.com{link['href']}>{author} </a>", unsafe_allow_html=True )
-quote_file.append([text, author, link['href'])
+quote_file.append([text, author, link['href']])
 
 if generate:
      try: 
