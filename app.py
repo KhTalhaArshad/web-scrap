@@ -11,7 +11,7 @@ url = f"https://quotes.toscrape.com/tag/{tag}/"
 
 res = requests.get(url)
 
-content = Beautiful Soup(res.content, 'html.parser' )
+content = BeautifulSoup(res.content, 'html.parser' )
 
 quotes = content.find_all('div', class_='quote')
 
