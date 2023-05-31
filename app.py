@@ -26,7 +26,7 @@ quote_file.append([text, author, link['href']])
 if generate:
      try: 
             df = pd.DataFrame(quote_file)
-             df.to_csv('quotes.csv', index=False, header=['Quote', 'Author', 'Link'], encoding='cp1252')
+            df.to_csv('quotes.csv', index=False, header=['Quote', 'Author', 'Link'], encoding='cp1252')
 
      except:      
                    st.write('Loading...')
