@@ -1,64 +1,36 @@
 import requests
-
 from bs4 import BeautifulSoup
+import streamlit as st
 
 
-url = "https://quotes.toscrape.com/"
+def scrape_wikipedia(url):
+    # Send a GET request to the URL
+    response = requests.get(url)
 
-# Send a GET request to the website
+    if response.status_code == 200:
+        # Create a BeautifulSoup object
+        soup = BeautifulSoup(response.text, "html.parser")
 
-response = requests.get(url)
+        # Extract the desired information from the HTML
+        title = soup.title.string
 
-# Check if the request was successful (status code 200)
+        # Display the results using Streamlit
+        st.write(f"Title: {title}")
+    else:
+        st.write(f"Error: Unable to retrieve data from {url}")
 
-if response.status_code == 200:
 
-    # Parse the HTML content using BeautifulSoup
+def main():
+    # Define the URL to scrape
+    url = "https://www.wikipedia.org/"
 
-    soup = BeautifulSoup(response.content, "html.parser")
+    # Set up Streamlit
+    st.title("Wikipedia Web Scraper")
+    st.write("Scraping data from Wikipedia...")
 
-    # Find all quote containers on the page
+    # Call the web scraping function
+    scrape_wikipedia(url)
 
-    quote_containers = soup.find_all("div", {"class": "quote"})
 
-    # Extract the quote and author from each container
-
-    for container in quote_containers:
-
-        quote = container.find("span", {"class": "text"}).text
-
-        author = container.find("small", {"class": "author"}).text
-
-        print("Quote:", quote)
-
-        print("Author:", author)
-
-        print()
-
-else:
-
-    print("Failed to retrieve the website content.")
-
- from each row
-
-    print("Information:")
-
-    for row in rows:
-
-        header = row.find("th")
-
-        if header:
-
-            header_text = header.text.strip()
-
-            data_cell = row.find("td")
-
-            if data_cell:
-
-                data = data_cell.text.strip()
-
-                print(header_text + ":", data)
-
-else:
-
-    print("Failed to retrieve the website content.")
+if __name__ == "__main__":
+    main()
