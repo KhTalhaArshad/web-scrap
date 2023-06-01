@@ -2,9 +2,8 @@ import requests
 
 from bs4 import BeautifulSoup
 
-# URL of the Wikipedia page for Asif Ali Zardari
 
-url = "https://en.m.wikipedia.org/wiki/Asif_Ali_Zardari"
+url = "https://quotes.toscrape.com/"
 
 # Send a GET request to the website
 
@@ -18,21 +17,29 @@ if response.status_code == 200:
 
     soup = BeautifulSoup(response.content, "html.parser")
 
-    # Get the page title
+    # Find all quote containers on the page
 
-    title = soup.find("h1", {"id": "firstHeading"}).text
+    quote_containers = soup.find_all("div", {"class": "quote"})
 
-    print("Page Title:", title)
+    # Extract the quote and author from each container
 
-    # Find the infobox table on the page
+    for container in quote_containers:
 
-    infobox = soup.find("table", {"class": "infobox"})
+        quote = container.find("span", {"class": "text"}).text
 
-    # Find all the rows in the infobox
+        author = container.find("small", {"class": "author"}).text
 
-    rows = infobox.find_all("tr")
+        print("Quote:", quote)
 
-    # Extract the information from each row
+        print("Author:", author)
+
+        print()
+
+else:
+
+    print("Failed to retrieve the website content.")
+
+ from each row
 
     print("Information:")
 
